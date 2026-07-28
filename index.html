@@ -366,6 +366,136 @@
             color: var(--accent-cyan);
         }
 
+        .overview-top-grid {
+            display: grid;
+            grid-template-columns: minmax(320px, 1.45fr) minmax(280px, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .overview-summary,
+        .overview-quote-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-lg);
+            padding: 34px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: var(--transition);
+        }
+
+        .overview-summary h3,
+        .overview-quote-card h3 {
+            font-size: 1.65rem;
+            margin-bottom: 14px;
+            color: var(--text-primary);
+        }
+
+        .overview-summary p,
+        .overview-quote-card p,
+        .overview-summary .summary-note {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .summary-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 14px;
+            margin-bottom: 18px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: rgba(0, 212, 255, 0.12);
+            color: var(--accent-cyan);
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .kpi-card {
+            padding: 22px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .kpi-number {
+            display: block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .kpi-label {
+            display: block;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .kpi-note {
+            display: block;
+            margin-top: 10px;
+            color: var(--accent-cyan);
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .summary-note {
+            margin-top: 26px;
+            font-size: 0.97rem;
+        }
+
+        .overview-quote-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .quote-mark {
+            font-size: 72px;
+            line-height: 0.85;
+            color: rgba(0, 212, 255, 0.16);
+        }
+
+        .quote-text {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-top: 12px;
+            line-height: 1.9;
+        }
+
+        .quote-author {
+            margin-top: 32px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .quote-source {
+            margin-top: 6px;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+        }
+
+        @media (max-width: 940px) {
+            .overview-top-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         /* ===== Map Entry Section (stacked layout) ===== */
         .map-entries {
             display: grid;
@@ -903,6 +1033,43 @@
                 <p class="section-subtitle">从芯片元器件到卫星制造、运营服务，商业航天已形成完整的上下游产业链生态</p>
             </div>
 
+            <div class="overview-top-grid">
+                <div class="overview-summary reveal">
+                    <div class="summary-badge">核心数据</div>
+                    <h3>深圳低空与空天产业正在加速规模化</h3>
+                    <p>把“数据看得见”放在最前面，关键指标从增速、产值到区域贡献，让产业概况更有说服力。</p>
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <span class="kpi-number">213.77 亿</span>
+                            <span class="kpi-label">2024 年低空+空天产业增加值</span>
+                            <span class="kpi-note">同比 +26.4%</span>
+                        </div>
+                        <div class="kpi-card">
+                            <span class="kpi-number">350.61 亿</span>
+                            <span class="kpi-label">2025 年低空+空天产业增加值</span>
+                            <span class="kpi-note">同比 +31%</span>
+                        </div>
+                        <div class="kpi-card">
+                            <span class="kpi-number">707.8 亿</span>
+                            <span class="kpi-label">2025 年宝安区低空+空天产业产值</span>
+                            <span class="kpi-note">占全市 37.4%</span>
+                        </div>
+                        <div class="kpi-card">
+                            <span class="kpi-number">131.2 亿</span>
+                            <span class="kpi-label">2025 年宝安区产业增加值</span>
+                            <span class="kpi-note">来源：科技日报</span>
+                        </div>
+                    </div>
+                    <div class="summary-note">截至 2025 年一季度，深圳获融资商业航天企业数量全国第三，说明区域资本与创新生态正在快速汇聚。</div>
+                </div>
+
+                <div class="overview-quote-card reveal">
+                    <div class="quote-mark">“</div>
+                    <p class="quote-text">2年后中国卫星产业将迎来规模化爆发，深圳的电子制造产能可顺畅嫁接到卫星工业化生产上。</p>
+                    <div class="quote-author">胡戈锋 · 深圳东方红董事长</div>
+                </div>
+            </div>
+
             <div class="cards-grid">
                 <!-- Card 1: 产业链 -->
                 <div class="info-card reveal" style="--card-accent: var(--accent-cyan)">
@@ -919,12 +1086,12 @@
                 <!-- Card 2: 市场规模 -->
                 <div class="info-card reveal" style="--card-accent: var(--accent-green)">
                     <div class="card-icon green">📈</div>
-                    <h3>市场规模</h3>
-                    <p>全球商业航天市场持续高速增长，低轨卫星星座计划密集部署，中国商业航天进入规模化发展快车道。</p>
+                    <h3>规模扩张</h3>
+                    <p>深圳低空和空天产业占比不断提升，2024-2025 年两年间产值跃升超过 60%，表明市场需求与产业支撑同步走强。</p>
                     <div class="card-tags">
-                        <span class="card-tag highlight">万亿赛道</span>
-                        <span class="card-tag">低轨星座</span>
-                        <span class="card-tag">规模部署</span>
+                        <span class="card-tag highlight">高增长</span>
+                        <span class="card-tag">规模化</span>
+                        <span class="card-tag">政策红利</span>
                     </div>
                 </div>
 
@@ -955,24 +1122,12 @@
                 <!-- Card 5: 关键技术 -->
                 <div class="info-card reveal" style="--card-accent: var(--accent-blue)">
                     <div class="card-icon blue">⚛️</div>
-                    <h3>关键技术</h3>
+                    <h3>核心技术</h3>
                     <p>星载相控阵T/R芯片、宇航级导航SoC、砷化镓太阳能电池、低轨卫星平台等核心技术持续突破。</p>
                     <div class="card-tags">
                         <span class="card-tag highlight">相控阵芯片</span>
                         <span class="card-tag">导航SoC</span>
                         <span class="card-tag">太阳能电池</span>
-                    </div>
-                </div>
-
-                <!-- Card 6: 政策驱动 -->
-                <div class="info-card reveal" style="--card-accent: var(--accent-gold)">
-                    <div class="card-icon gold">📋</div>
-                    <h3>政策驱动</h3>
-                    <p>国家将商业航天纳入战略性新兴产业，地方政府出台专项扶持政策，为产业发展提供制度保障与资源支持。</p>
-                    <div class="card-tags">
-                        <span class="card-tag highlight">国家战略</span>
-                        <span class="card-tag">地方扶持</span>
-                        <span class="card-tag">新质生产力</span>
                     </div>
                 </div>
             </div>
