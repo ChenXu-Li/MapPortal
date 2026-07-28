@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>建星计划 | Commercial Aerospace Portal</title>
+    <meta name="description" content="商业航天产业概况与产业地图入口">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-deep: #050816;
+            --bg-mid: #0a0e27;
+            --bg-card: rgba(15, 20, 50, 0.55);
+            --bg-card-hover: rgba(25, 35, 80, 0.7);
+            --border-glow: rgba(100, 160, 255, 0.18);
+            --border-hover: rgba(120, 200, 255, 0.4);
+            --accent-cyan: #00d4ff;
+            --accent-blue: #4facfe;
+            --accent-purple: #a855f7;
+            --accent-orange: #ff6b35;
+            --accent-green: #00f5a0;
+            --accent-gold: #ffd700;
+            --text-primary: #f0f4ff;
+            --text-secondary: #a0aec0;
+            --text-muted: #718096;
+            --radius: 16px;
+            --radius-lg: 24px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* ===== Starfield Background ===== */
+        #starfield {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-gradient {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at 20% 0%, rgba(79, 172, 254, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 100%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 212, 255, 0.04) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        /* ===== Layout Container ===== */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== Navigation ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 18px 0;
+            background: rgba(5, 8, 22, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-glow);
+            transition: var(--transition);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: 1px;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 10px;
+            font-size: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--accent-cyan);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover { color: var(--accent-cyan); }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.25);
+            border-radius: 50px;
+            font-size: 13px;
+            color: var(--accent-cyan);
+            margin-bottom: 32px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-badge .dot {
+            width: 8px; height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-blue) 40%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 .en {
+            display: block;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.35em;
+            font-weight: 400;
+            letter-spacing: 4px;
+            color: var(--text-muted);
+            margin-top: 16px;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-secondary);
+            max-width: 720px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .num {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-stat .label {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-muted);
+            font-size: 24px;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        /* ===== Section Title ===== */
+        .section { padding: 100px 0; }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-tag {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ===== Info Cards Grid ===== */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius-lg);
+            padding: 36px 32px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--card-accent, var(--accent-cyan)), transparent);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            transform: translateY(-6px);
+            background: var(--bg-card-hover);
+            border-color: var(--border-hover);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.08);
+        }
+
+        .info-card:hover::before { opacity: 1; }
+
+        .card-icon {
+            width: 56px; height: 56px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 14px;
+            font-size: 26px;
+            margin-bottom: 24px;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+        }
+
+        .card-icon.purple { background: rgba(168, 85, 247, 0.08); border-color: rgba(168, 85, 247, 0.15); }
+        .card-icon.orange { background: rgba(255, 107, 53, 0.08); border-color: rgba(255, 107, 53, 0.15); }
+        .card-icon.green  { background: rgba(0, 245, 160, 0.08); border-color: rgba(0, 245, 160, 0.15); }
+        .card-icon.gold   { background: rgba(255, 215, 0, 0.08); border-color: rgba(255, 215, 0, 0.15); }
+        .card-icon.blue   { background: rgba(79, 172, 254, 0.08); border-color: rgba(79, 172, 254, 0.15); }
+        .card-icon.cyan   { background: rgba(0, 212, 255, 0.08); border-color: rgba(0, 212, 255, 0.15); }
+
+        .info-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .card-tag {
+            padding: 5px 14px;
+            font-size: 12px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-secondary);
+        }
+
+        .card-tag.highlight {
+            background: rgba(0, 212, 255, 0.08);
+            border-color: rgba(0, 212, 255, 0.2);
+            color: var(--accent-cyan);
+        }
+
+        /* ===== Map Entry Section ===== */
+        .map-entries {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        @media (max-width: 880px) {
+            .map-entries { grid-template-columns: 1fr; }
+        }
+
+        .map-entry {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: var(--transition);
+            min-height: 440px;
+            border: 1px solid var(--border-glow);
+        }
+
+        .map-entry-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 0;
+            transition: var(--transition);
+        }
+
+        .map-entry-bg.shenzhen {
+            background:
+                radial-gradient(circle at 70% 30%, rgba(0, 245, 160, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 30% 70%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0a1a2e 0%, #0d2818 100%);
+        }
+
+        .map-entry-bg.global {
+            background:
+                radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0a0e27 0%, #1a0a2e 100%);
+        }
+
+        .map-entry:hover .map-entry-bg {
+            transform: scale(1.05);
+        }
+
+        .map-entry:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-hover);
+            box-shadow: 0 24px 80px rgba(0, 212, 255, 0.12);
+        }
+
+        .map-entry-content {
+            position: relative;
+            z-index: 1;
+            padding: 40px 36px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 440px;
+        }
+
+        .map-entry-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .map-entry-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .map-entry-arrow {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 18px;
+            transition: var(--transition);
+        }
+
+        .map-entry:hover .map-entry-arrow {
+            background: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            transform: rotate(-45deg);
+        }
+
+        .map-entry-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+            padding: 20px 0;
+        }
+
+        .map-entry-visual svg {
+            width: 120px;
+            height: 120px;
+            opacity: 0.85;
+        }
+
+        .map-entry-bottom h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .map-entry-bottom .en-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .map-entry-bottom p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .map-entry-stats {
+            display: flex;
+            gap: 24px;
+        }
+
+        .map-entry-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .map-entry-stat .num {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .map-entry-stat .label {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .shenzhen .map-entry-stat .num { color: var(--accent-green); }
+        .global .map-entry-stat .num { color: var(--accent-purple); }
+
+        /* ===== Timeline Section ===== */
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%; top: 0;
+            transform: translateX(-50%);
+            width: 2px; height: 100%;
+            background: linear-gradient(to bottom, transparent, var(--accent-cyan), transparent);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 48px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) { flex-direction: row; }
+        .timeline-item:nth-child(even) { flex-direction: row-reverse; }
+
+        .timeline-content {
+            width: 45%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: var(--transition);
+        }
+
+        .timeline-content:hover {
+            border-color: var(--border-hover);
+            transform: scale(1.02);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%; top: 24px;
+            transform: translateX(-50%);
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            border: 3px solid var(--bg-deep);
+            box-shadow: 0 0 12px var(--accent-cyan);
+            z-index: 1;
+        }
+
+        .timeline-year {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 8px;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content { text-align: right; }
+
+        @media (max-width: 768px) {
+            .timeline::before { left: 20px; }
+            .timeline-item, .timeline-item:nth-child(even) { flex-direction: row; }
+            .timeline-content { width: calc(100% - 50px); margin-left: 40px; text-align: left !important; }
+            .timeline-dot { left: 20px; }
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            border-top: 1px solid var(--border-glow);
+            padding: 48px 0 32px;
+            text-align: center;
+        }
+
+        footer .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        footer .footer-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        footer .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            transition: var(--transition);
+        }
+
+        footer .footer-links a:hover { color: var(--accent-cyan); }
+
+        footer .copyright {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        /* ===== Team Info ===== */
+        .team-info {
+            width: 100%;
+            max-width: 720px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border-glow);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            text-align: center;
+        }
+
+        .team-row {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .team-row-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .team-row-members {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .team-row-members .sep {
+            color: var(--text-muted);
+            margin: 0 6px;
+        }
+
+        /* ===== Animations ===== */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(0, 245, 160, 0.4); }
+            50% { opacity: 0.6; box-shadow: 0 0 0 8px rgba(0, 245, 160, 0); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes rotateGlobe {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes orbitSat {
+            from { transform: rotate(0deg) translateX(48px) rotate(0deg); }
+            to { transform: rotate(360deg) translateX(48px) rotate(-360deg); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== Responsive Nav ===== */
+        @media (max-width: 640px) {
+            .nav-links { display: none; }
+            .hero-stats { gap: 24px; }
+            .hero-stat .num { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <canvas id="starfield"></canvas>
+    <div class="bg-gradient"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">🚀</span>
+                <span>建星计划</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#maps">产业地图</a></li>
+                <li><a href="#overview">产业概况</a></li>
+                <li><a href="#timeline">发展历程</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                <span>2026 · 商业航天产业洞察</span>
+            </div>
+            <h1>
+                <span class="gradient-text">建星</span>计划
+                <span class="en">JIANXING PROGRAM</span>
+            </h1>
+            <p>
+                商业航天是以市场为主导、企业为主体的航天活动形态，涵盖卫星制造、发射服务、
+                地面运营、数据应用等全产业链。本平台提供产业概况与可视化地图入口，
+                助您洞察中国及全球商业航天产业格局。
+            </p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="num">11K+</div>
+                    <div class="label">在轨商业卫星（全球）</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="num">11</div>
+                    <div class="label">深圳航天企业（标注）</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="num">6</div>
+                    <div class="label">全球主要星座</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="num">3</div>
+                    <div class="label">核心产业链环节</div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator" onclick="document.getElementById('maps').scrollIntoView({behavior:'smooth'})">⌄</div>
+    </section>
+
+    <!-- Map Entries -->
+    <section class="section" id="maps">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-tag">INDUSTRY MAPS</div>
+                <h2 class="section-title">产业地图入口</h2>
+                <p class="section-subtitle">点击下方卡片，进入交互式产业地图，探索深圳与全球商业航天产业分布</p>
+            </div>
+
+            <div class="map-entries">
+                <!-- Shenzhen Map Entry -->
+                <a class="map-entry reveal" href="https://city.ourccb.icu">
+                    <div class="map-entry-bg shenzhen"></div>
+                    <div class="map-entry-content">
+                        <div class="map-entry-top">
+                            <span class="map-entry-label">REGIONAL MAP · 深圳</span>
+                            <div class="map-entry-arrow">↗</div>
+                        </div>
+                        <div class="map-entry-visual">
+                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="60" cy="60" r="50" stroke="#00f5a0" stroke-width="2" opacity="0.3" fill="none"/>
+                                <path d="M30 50 L45 35 L65 40 L85 45 L80 70 L65 85 L40 80 L25 60 Z" stroke="#00f5a0" stroke-width="2.5" fill="rgba(0,245,160,0.08)"/>
+                                <circle cx="50" cy="55" r="4" fill="#ff6b35"/>
+                                <circle cx="68" cy="50" r="4" fill="#ff6b35"/>
+                                <circle cx="60" cy="68" r="4" fill="#0d6efd"/>
+                                <circle cx="45" cy="72" r="4" fill="#20c997"/>
+                                <circle cx="72" cy="62" r="4" fill="#0d6efd"/>
+                                <circle cx="55" cy="45" r="4" fill="#ff6b35"/>
+                            </svg>
+                        </div>
+                        <div class="map-entry-bottom">
+                            <h3>深圳商业航天产业地图</h3>
+                            <div class="en-name">SHENZHEN AEROSPACE MAP</div>
+                            <p>交互式 SVG 地图，覆盖深圳 9 大行政区，标注 11 家商业航天企业，涵盖芯片元器件、卫星制造、运营服务三大领域。</p>
+                            <div class="map-entry-stats">
+                                <div class="map-entry-stat">
+                                    <span class="num">11</span>
+                                    <span class="label">家企业</span>
+                                </div>
+                                <div class="map-entry-stat">
+                                    <span class="num">9</span>
+                                    <span class="label">个行政区</span>
+                                </div>
+                                <div class="map-entry-stat">
+                                    <span class="num">3</span>
+                                    <span class="label">大领域</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Global Map Entry -->
+                <a class="map-entry reveal" href="https://global.ourccb.icu">
+                    <div class="map-entry-bg global"></div>
+                    <div class="map-entry-content">
+                        <div class="map-entry-top">
+                            <span class="map-entry-label">GLOBAL MAP · 全球</span>
+                            <div class="map-entry-arrow">↗</div>
+                        </div>
+                        <div class="map-entry-visual">
+                            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="60" cy="60" r="44" stroke="#a855f7" stroke-width="2.5" fill="rgba(168,85,247,0.06)"/>
+                                <ellipse cx="60" cy="60" rx="55" ry="20" stroke="#00d4ff" stroke-width="1.5" opacity="0.4" fill="none"/>
+                                <ellipse cx="60" cy="60" rx="55" ry="20" stroke="#ffd700" stroke-width="1.5" opacity="0.4" fill="none" transform="rotate(60 60 60)"/>
+                                <ellipse cx="60" cy="60" rx="55" ry="20" stroke="#00f5a0" stroke-width="1.5" opacity="0.4" fill="none" transform="rotate(120 60 60)"/>
+                                <circle cx="60" cy="16" r="3" fill="#ffd700"/>
+                                <circle cx="104" cy="70" r="3" fill="#00d4ff"/>
+                                <circle cx="30" cy="95" r="3" fill="#00f5a0"/>
+                                <circle cx="92" cy="35" r="3" fill="#a855f7"/>
+                                <circle cx="20" cy="50" r="3" fill="#ff6b35"/>
+                                <circle cx="75" cy="100" r="3" fill="#56d985"/>
+                            </svg>
+                        </div>
+                        <div class="map-entry-bottom">
+                            <h3>全球卫星星座可视化</h3>
+                            <div class="en-name">GLOBAL SATELLITE MAP</div>
+                            <p>基于 Three.js 的三维地球可视化，展示 6 大卫星星座的轨道分布与运行状态，包括 GPS、星链、北斗、千帆等。</p>
+                            <div class="map-entry-stats">
+                                <div class="map-entry-stat">
+                                    <span class="num">6</span>
+                                    <span class="label">大星座</span>
+                                </div>
+                                <div class="map-entry-stat">
+                                    <span class="num">3D</span>
+                                    <span class="label">交互地球</span>
+                                </div>
+                                <div class="map-entry-stat">
+                                    <span class="num">10K+</span>
+                                    <span class="label">颗卫星</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Overview Cards -->
+    <section class="section" id="overview">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-tag">INDUSTRY OVERVIEW</div>
+                <h2 class="section-title">商业航天产业概况</h2>
+                <p class="section-subtitle">从芯片元器件到卫星制造、运营服务，商业航天已形成完整的上下游产业链生态</p>
+            </div>
+
+            <div class="cards-grid">
+                <!-- Card 1: 产业链 -->
+                <div class="info-card reveal" style="--card-accent: var(--accent-cyan)">
+                    <div class="card-icon cyan">🔗</div>
+                    <h3>完整产业链</h3>
+                    <p>商业航天产业链覆盖上游芯片元器件研发、中游卫星总装制造、下游运营服务与数据应用，形成闭环生态。</p>
+                    <div class="card-tags">
+                        <span class="card-tag highlight">芯片元器件</span>
+                        <span class="card-tag">卫星制造</span>
+                        <span class="card-tag">运营服务</span>
+                    </div>
+                </div>
+
+                <!-- Card 2: 市场规模 -->
+                <div class="info-card reveal" style="--card-accent: var(--accent-green)">
+                    <div class="card-icon green">📈</div>
+                    <h3>市场规模</h3>
+                    <p>全球商业航天市场持续高速增长，低轨卫星星座计划密集部署，中国商业航天进入规模化发展快车道。</p>
+                    <div class="card-tags">
+                        <span class="card-tag highlight">万亿赛道</span>
+                        <span class="card-tag">低轨星座</span>
+                        <span class="card-tag">规模部署</span>
+                    </div>
+                </div>
+
+                <!-- Card 3: 核心技术 -->
+                <div class="info-card reveal" style="--card-accent: var(--accent-purple)">
+                    <div class="card-icon purple">🛰️</div>
+                    <h3>卫星星座</h3>
+                    <p>从导航定位（GPS/北斗）到宽带通信（星链/千帆）再到遥感监测（吉林一号），多类型星座协同构建空间基础设施。</p>
+                    <div class="card-tags">
+                        <span class="card-tag highlight">导航星座</span>
+                        <span class="card-tag">通信星座</span>
+                        <span class="card-tag">遥感星座</span>
+                    </div>
+                </div>
+
+                <!-- Card 4: 深圳优势 -->
+                <div class="info-card reveal" style="--card-accent: var(--accent-orange)">
+                    <div class="card-icon orange">🏙️</div>
+                    <h3>深圳产业集群</h3>
+                    <p>深圳凭借电子信息技术优势，在南山区形成航天芯片研发聚集地，宝安区覆盖制造全链条，产业协同效应显著。</p>
+                    <div class="card-tags">
+                        <span class="card-tag highlight">南山·芯片</span>
+                        <span class="card-tag">宝安·制造</span>
+                        <span class="card-tag">罗湖·运营</span>
+                    </div>
+                </div>
+
+                <!-- Card 5: 关键技术 -->
+                <div class="info-card reveal" style="--card-accent: var(--accent-blue)">
+                    <div class="card-icon blue">⚛️</div>
+                    <h3>关键技术</h3>
+                    <p>星载相控阵T/R芯片、宇航级导航SoC、砷化镓太阳能电池、低轨卫星平台等核心技术持续突破。</p>
+                    <div class="card-tags">
+                        <span class="card-tag highlight">相控阵芯片</span>
+                        <span class="card-tag">导航SoC</span>
+                        <span class="card-tag">太阳能电池</span>
+                    </div>
+                </div>
+
+                <!-- Card 6: 政策驱动 -->
+                <div class="info-card reveal" style="--card-accent: var(--accent-gold)">
+                    <div class="card-icon gold">📋</div>
+                    <h3>政策驱动</h3>
+                    <p>国家将商业航天纳入战略性新兴产业，地方政府出台专项扶持政策，为产业发展提供制度保障与资源支持。</p>
+                    <div class="card-tags">
+                        <span class="card-tag highlight">国家战略</span>
+                        <span class="card-tag">地方扶持</span>
+                        <span class="card-tag">新质生产力</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="section" id="timeline">
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="section-tag">DEVELOPMENT TIMELINE</div>
+                <h2 class="section-title">商业航天发展历程</h2>
+                <p class="section-subtitle">从政策破冰到规模化部署，中国商业航天走过关键十年</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2014</div>
+                        <h4>政策破冰</h4>
+                        <p>国务院鼓励民间资本进入卫星研制和发射等领域，商业航天政策大门正式开启。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2018</div>
+                        <h4>民营火箭首飞</h4>
+                        <p>中国民营商业火箭实现首次入轨发射，标志着商业航天从政策走向实践。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020</div>
+                        <h4>北斗全球组网</h4>
+                        <p>北斗三号全球卫星导航系统正式开通，中国自主导航星座服务全球。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2024</div>
+                        <h4>千帆星座启航</h4>
+                        <p>中国"千帆星座"（G60星链）首批卫星发射，大规模低轨星座部署拉开序幕。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2025</div>
+                        <h4>新质生产力</h4>
+                        <p>商业航天被列为国家战略性新兴产业和新质生产力代表，进入规模化发展新阶段。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">🚀</span>
+                <span>建星计划</span>
+            </div>
+            <div class="footer-links">
+                <a href="https://global.ourccb.icu">全球星座地图</a>
+                <a href="https://city.ourccb.icu">深圳产业地图</a>
+                <a href="#overview">产业概况</a>
+                <a href="#timeline">发展历程</a>
+            </div>
+            <div class="copyright">© 2026 建星计划 · 数据可视化项目</div>
+            <div class="team-info">
+                <div class="team-row">
+                    <span class="team-row-label">指导老师</span>
+                    <span class="team-row-members">迅雷<span class="sep">·</span>思琪</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-row-label">培训老师</span>
+                    <span class="team-row-members">骆老师<span class="sep">·</span>李珊珊<span class="sep">·</span>洪老师<span class="sep">·</span>陈老师<span class="sep">·</span>王老师</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-row-label">技术开发</span>
+                    <span class="team-row-members">李辰旭</span>
+                </div>
+                <div class="team-row">
+                    <span class="team-row-label">21研讨小组成员</span>
+                    <span class="team-row-members">陈希<span class="sep">·</span>陈煜菲<span class="sep">·</span>林如玉<span class="sep">·</span>丁华南<span class="sep">·</span>杜禧萍<span class="sep">·</span>林彩怡<span class="sep">·</span>李辰旭<span class="sep">·</span>谢展鹏<span class="sep">·</span>金子凯<span class="sep">·</span>吴筱<span class="sep">·</span>蔡和彬<span class="sep">·</span>袁成庆</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== Starfield Animation =====
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+        let shootingStars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initStars();
+        }
+
+        function initStars() {
+            stars = [];
+            const count = Math.floor((canvas.width * canvas.height) / 6000);
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 1.5 + 0.3,
+                    opacity: Math.random() * 0.8 + 0.2,
+                    twinkleSpeed: Math.random() * 0.02 + 0.005,
+                    twinkleDir: 1,
+                    color: Math.random() > 0.85 ? '#a0c4ff' : (Math.random() > 0.9 ? '#ffd4a0' : '#ffffff')
+                });
+            }
+        }
+
+        function createShootingStar() {
+            if (Math.random() > 0.995 && shootingStars.length < 2) {
+                shootingStars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height * 0.5,
+                    vx: Math.random() * 4 + 3,
+                    vy: Math.random() * 2 + 1,
+                    life: 1,
+                    trail: []
+                });
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw stars
+            stars.forEach(s => {
+                s.opacity += s.twinkleSpeed * s.twinkleDir;
+                if (s.opacity >= 1) { s.opacity = 1; s.twinkleDir = -1; }
+                if (s.opacity <= 0.15) { s.opacity = 0.15; s.twinkleDir = 1; }
+
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = s.color;
+                ctx.globalAlpha = s.opacity;
+                ctx.fill();
+            });
+            ctx.globalAlpha = 1;
+
+            // Draw shooting stars
+            createShootingStar();
+            shootingStars = shootingStars.filter(ss => {
+                ss.trail.push({ x: ss.x, y: ss.y });
+                if (ss.trail.length > 15) ss.trail.shift();
+                ss.x += ss.vx;
+                ss.y += ss.vy;
+                ss.life -= 0.015;
+
+                if (ss.trail.length > 1) {
+                    const grad = ctx.createLinearGradient(
+                        ss.trail[0].x, ss.trail[0].y,
+                        ss.x, ss.y
+                    );
+                    grad.addColorStop(0, 'rgba(0, 212, 255, 0)');
+                    grad.addColorStop(1, `rgba(0, 212, 255, ${ss.life})`);
+                    ctx.strokeStyle = grad;
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.moveTo(ss.trail[0].x, ss.trail[0].y);
+                    for (let i = 1; i < ss.trail.length; i++) {
+                        ctx.lineTo(ss.trail[i].x, ss.trail[i].y);
+                    }
+                    ctx.lineTo(ss.x, ss.y);
+                    ctx.stroke();
+                }
+
+                return ss.life > 0 && ss.x < canvas.width && ss.y < canvas.height;
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        animate();
+
+        // ===== Scroll Reveal =====
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // ===== Nav background on scroll =====
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(5, 8, 22, 0.92)';
+                nav.style.padding = '12px 0';
+            } else {
+                nav.style.background = 'rgba(5, 8, 22, 0.7)';
+                nav.style.padding = '18px 0';
+            }
+        });
+    </script>
+</body>
+</html>
