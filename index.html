@@ -736,6 +736,181 @@
             .timeline-dot { left: 20px; }
         }
 
+        /* ===== Timeline Policy Links ===== */
+        .timeline-policies {
+            margin-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .timeline-policy-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            font-size: 0.76rem;
+            border-radius: 8px;
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            color: var(--accent-cyan);
+            text-decoration: none;
+            transition: var(--transition);
+            line-height: 1.4;
+        }
+
+        .timeline-policy-link:hover {
+            background: rgba(0, 212, 255, 0.14);
+            border-color: rgba(0, 212, 255, 0.35);
+            transform: translateX(4px);
+        }
+
+        .timeline-policy-link .pl-icon { font-size: 0.7rem; opacity: 0.7; }
+        .timeline-policy-link .pl-host { color: var(--text-muted); font-size: 0.72rem; }
+
+        /* ===== Policy Database (Collapsible) ===== */
+        .policy-db {
+            max-width: 900px;
+            margin: 48px auto 0;
+        }
+
+        .policy-db-intro {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            margin-bottom: 28px;
+            line-height: 1.7;
+        }
+
+        .policy-level-group { margin-bottom: 16px; }
+
+        .policy-level-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 22px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: var(--radius);
+            cursor: pointer;
+            user-select: none;
+            transition: var(--transition);
+            list-style: none;
+        }
+
+        .policy-level-header::-webkit-details-marker { display: none; }
+        .policy-level-header::marker { display: none; }
+
+        .policy-level-header:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+        }
+
+        .policy-level-badge {
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px; height: 34px;
+            border-radius: 9px;
+            font-size: 16px;
+        }
+
+        .policy-level-badge.national   { background: rgba(255, 215, 0, 0.1);  border: 1px solid rgba(255, 215, 0, 0.2);  color: var(--accent-gold); }
+        .policy-level-badge.provincial{ background: rgba(79, 172, 254, 0.1);  border: 1px solid rgba(79, 172, 254, 0.2); color: var(--accent-blue); }
+        .policy-level-badge.city      { background: rgba(0, 245, 160, 0.1);  border: 1px solid rgba(0, 245, 160, 0.2); color: var(--accent-green); }
+
+        .policy-level-title {
+            flex: 1;
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .policy-level-count {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-right: 8px;
+        }
+
+        .policy-level-chevron {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+
+        details[open] .policy-level-chevron { transform: rotate(180deg); }
+
+        .policy-list {
+            padding: 10px 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .policy-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            transition: var(--transition);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .policy-item:hover {
+            background: rgba(0, 212, 255, 0.05);
+            border-color: rgba(0, 212, 255, 0.2);
+            transform: translateX(4px);
+        }
+
+        .policy-item-icon {
+            flex-shrink: 0;
+            width: 28px; height: 28px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 6px;
+            background: rgba(0, 212, 255, 0.08);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            font-size: 13px;
+            color: var(--accent-cyan);
+            margin-top: 2px;
+        }
+
+        .policy-item-body { flex: 1; min-width: 0; }
+
+        .policy-item-name {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            line-height: 1.5;
+            margin-bottom: 4px;
+        }
+
+        .policy-item-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .policy-item-year {
+            padding: 2px 8px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            font-weight: 600;
+        }
+
+        .policy-item-host { opacity: 0.8; }
+
+        @media (max-width: 768px) {
+            .policy-item { flex-direction: column; gap: 8px; }
+            .policy-item-icon { margin-top: 0; }
+        }
+
         /* ===== Footer ===== */
         footer {
             border-top: 1px solid var(--border-glow);
@@ -1147,7 +1322,7 @@
 
             <div class="map-entries">
                 <!-- Shenzhen Map Entry -->
-                <a class="map-entry reveal" href="https://city.ourccb.icu">
+                <a class="map-entry reveal" href="city.ourccb.icu">
                     <div class="map-entry-bg shenzhen"></div>
                     <div class="map-entry-content">
                         <div class="map-entry-top">
@@ -1189,7 +1364,7 @@
                 </a>
 
                 <!-- Global Map Entry -->
-                <a class="map-entry reveal" href="https://global.ourccb.icu">
+                <a class="map-entry reveal" href="global.ourccb.icu">
                     <div class="map-entry-bg global"></div>
                     <div class="map-entry-content">
                         <div class="map-entry-top">
@@ -1260,14 +1435,14 @@
                             <span class="kpi-note">同比 +31%</span>
                         </div>
                         <div class="kpi-card">
-                            <span class="kpi-number">707.8 亿</span>
-                            <span class="kpi-label">2025 年宝安区低空+空天产业产值</span>
-                            <span class="kpi-note">占全市 37.4%</span>
+                            <span class="kpi-number">462.80 亿</span>
+                            <span class="kpi-label">2024 年低空+空天产业增加值</span>
+                            <span class="kpi-note">同比 +32%</span>
                         </div>
                         <div class="kpi-card">
-                            <span class="kpi-number">131.2 亿</span>
-                            <span class="kpi-label">2025 年宝安区产业增加值</span>
-                            <span class="kpi-note">来源：科技日报</span>
+                            <span class="kpi-number">149.95 亿</span>
+                            <span class="kpi-label">预计 2026 年空天产业增加值</span>
+                            <span class="kpi-note">占比 32.4%</span>
                         </div>
                     </div>
                     <div class="summary-note">截至 2025 年一季度，深圳获融资商业航天企业数量全国第三，说明区域资本与创新生态正在快速汇聚。</div>
@@ -1380,20 +1555,306 @@
                 </div>
                 <div class="timeline-item reveal">
                     <div class="timeline-content">
+                        <div class="timeline-year">2022</div>
+                        <h4>深圳布局未来产业</h4>
+                        <p>深圳出台战略性新兴产业集群与未来产业系列政策，将空天技术纳入重点培育方向。</p>
+                        <div class="timeline-policies">
+                            <a class="timeline-policy-link" href="https://www.sz.gov.cn/zfgb/2022/gb1248/content/post_9918806.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>深府〔2022〕1号 — 发展壮大战略性新兴产业集群意见 <span class="pl-host">sz.gov.cn</span>
+                            </a>
+                            <a class="timeline-policy-link" href="https://stic.sz.gov.cn/xxgk/kjgh/content/post_9861356.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>深圳市培育发展未来产业行动计划（2022-2025） <span class="pl-host">stic.sz.gov.cn</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
                         <div class="timeline-year">2024</div>
                         <h4>千帆星座启航</h4>
-                        <p>中国"千帆星座"（G60星链）首批卫星发射，大规模低轨星座部署拉开序幕。</p>
+                        <p>中国"千帆星座"（G60星链）首批卫星发射，大规模低轨星座部署拉开序幕。广东省同步出台商业航天高质量发展行动方案。</p>
+                        <div class="timeline-policies">
+                            <a class="timeline-policy-link" href="https://www.gd.gov.cn/zwgk/gongbao/2024/22/content/post_4508029.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>广东省推动商业航天高质量发展行动方案（2024-2028） <span class="pl-host">gd.gov.cn</span>
+                            </a>
+                            <a class="timeline-policy-link" href="https://www.sz.gov.cn/cn/xxgk/zfxxgj/zwdt/content/post_11964163.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>深圳市培育发展低空经济与空天产业集群行动计划（2024-2025） <span class="pl-host">sz.gov.cn</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
                 <div class="timeline-item reveal">
                     <div class="timeline-content">
                         <div class="timeline-year">2025</div>
-                        <h4>新质生产力</h4>
-                        <p>商业航天被列为国家战略性新兴产业和新质生产力代表，进入规模化发展新阶段。</p>
+                        <h4>新质生产力 · 规模化元年</h4>
+                        <p>商业航天被列为国家战略性新兴产业和新质生产力代表，进入规模化发展新阶段。国家级与省市级政策密集出台。</p>
+                        <div class="timeline-policies">
+                            <a class="timeline-policy-link" href="https://www.gov.cn/zhengce/zhengceku/202508/content_7038032.htm" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>工信部信管〔2025〕180号 — 优化业务准入促进卫星通信产业发展 <span class="pl-host">gov.cn</span>
+                            </a>
+                            <a class="timeline-policy-link" href="https://www.cnsa.gov.cn/n6758823/n6758839/c10719382/content.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>国家航天局推进商业航天高质量安全发展行动计划（2025-2027） <span class="pl-host">cnsa.gov.cn</span>
+                            </a>
+                            <a class="timeline-policy-link" href="https://www.gd.gov.cn/xxts/content/post_4760520.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>粤办函〔2025〕231号 — 广东省商业航天高质量发展若干措施（2025-2028） <span class="pl-host">gd.gov.cn</span>
+                            </a>
+                            <a class="timeline-policy-link" href="https://fgw.sz.gov.cn/zwgk/qt/tzgg/content/post_8847849.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>深圳市关于支持卫星及应用产业发展的工作意见 <span class="pl-host">fgw.sz.gov.cn</span>
+                            </a>
+                            <a class="timeline-policy-link" href="https://www.sz.gov.cn/cn/xxgk/zfxxgj/zcfg/content/post_11191030.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>深圳加快发展新质生产力推进战略性新兴产业集群实施方案 <span class="pl-host">sz.gov.cn</span>
+                            </a>
+                            <a class="timeline-policy-link" href="https://www.sz.gov.cn/zfgb/2025/gb1387/content/post_12422358.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>深圳市支持低空经济高质量发展的若干措施 <span class="pl-host">sz.gov.cn</span>
+                            </a>
+                            <a class="timeline-policy-link" href="https://www.szrd.gov.cn/v2/zx/szfg/content/post_1123253.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>深圳经济特区低空经济产业促进条例 <span class="pl-host">szrd.gov.cn</span>
+                            </a>
+                        </div>
                     </div>
                     <div class="timeline-dot"></div>
                 </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2026</div>
+                        <h4>"十五五"开局 · 全面深化</h4>
+                        <p>2026年《政府工作报告》再提商业航天，国家级与省市"十五五"规划将商业航天纳入核心布局，政策体系全面升级。</p>
+                        <div class="timeline-policies">
+                            <a class="timeline-policy-link" href="https://www.gov.cn/gongbao/2026/issue_12646/202603/content_7064134.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>2026年《政府工作报告》 <span class="pl-host">gov.cn</span>
+                            </a>
+                            <a class="timeline-policy-link" href="https://www.miit.gov.cn/zwgk/zcwj/wjfb/yj/art/2026/art_fefdddaaa4ac49edb130c85d048a2933.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>关于推动互联网基础资源高质量发展的指导意见（2026） <span class="pl-host">miit.gov.cn</span>
+                            </a>
+                            <a class="timeline-policy-link" href="https://gdca.miit.gov.cn/zwgk/tzgg/art/2026/art_36730e24225a49ab989900efdfe7c617.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>广东省信息通信业"十五五"规划（征求意见稿） <span class="pl-host">gdca.miit.gov.cn</span>
+                            </a>
+                            <a class="timeline-policy-link" href="https://www.gd.gov.cn/zwgk/wngh/swwgh/content/post_4890296.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>广东省国民经济和社会发展第十五个五年规划纲要 <span class="pl-host">gd.gov.cn</span>
+                            </a>
+                            <a class="timeline-policy-link" href="https://fgw.sz.gov.cn/zwgk/ghjh/ghgy/content/post_12872790.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>深圳市国民经济和社会发展第十五个五年规划纲要 <span class="pl-host">fgw.sz.gov.cn</span>
+                            </a>
+                            <a class="timeline-policy-link" href="https://www.cinn.cn/2026/02-12/3DlVe0B1.html" target="_blank" rel="noopener">
+                                <span class="pl-icon">📄</span>深圳市"20+8"战略性新兴产业集群和未来产业政策体系（3.0版） <span class="pl-host">cinn.cn</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+
+            <!-- Policy Database: Collapsible -->
+            <div class="policy-db reveal">
+                <p class="policy-db-intro">点击下方各级标题可展开 / 收起完整政策文件清单。所有链接均指向政府官方网站原文。</p>
+
+                <!-- 国家级 -->
+                <details class="policy-level-group" open>
+                    <summary class="policy-level-header">
+                        <span class="policy-level-badge national">囯</span>
+                        <span class="policy-level-title">国家级政策</span>
+                        <span class="policy-level-count">4 份</span>
+                        <span class="policy-level-chevron">▾</span>
+                    </summary>
+                    <div class="policy-list">
+                        <a class="policy-item" href="https://www.gov.cn/zhengce/zhengceku/202508/content_7038032.htm" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">工业和信息化部关于优化业务准入促进卫星通信产业发展的指导意见（工信部信管〔2025〕180号）</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2025</span>
+                                    <span class="policy-item-host">国务院 · gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                        <a class="policy-item" href="https://www.cnsa.gov.cn/n6758823/n6758839/c10719382/content.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">国家航天局推进商业航天高质量安全发展行动计划（2025—2027年）</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2025</span>
+                                    <span class="policy-item-host">国家航天局 · cnsa.gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                        <a class="policy-item" href="https://www.gov.cn/gongbao/2026/issue_12646/202603/content_7064134.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">2026年《政府工作报告》</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2026</span>
+                                    <span class="policy-item-host">国务院 · gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                        <a class="policy-item" href="https://www.miit.gov.cn/zwgk/zcwj/wjfb/yj/art/2026/art_fefdddaaa4ac49edb130c85d048a2933.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">关于推动互联网基础资源高质量发展的指导意见（2026）</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2026</span>
+                                    <span class="policy-item-host">工业和信息化部 · miit.gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                    </div>
+                </details>
+
+                <!-- 广东省级 -->
+                <details class="policy-level-group">
+                    <summary class="policy-level-header">
+                        <span class="policy-level-badge provincial">粤</span>
+                        <span class="policy-level-title">广东省级政策</span>
+                        <span class="policy-level-count">4 份</span>
+                        <span class="policy-level-chevron">▾</span>
+                    </summary>
+                    <div class="policy-list">
+                        <a class="policy-item" href="https://www.gd.gov.cn/zwgk/gongbao/2024/22/content/post_4508029.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">广东省推动商业航天高质量发展行动方案（2024—2028年）</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2024</span>
+                                    <span class="policy-item-host">广东省人民政府 · gd.gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                        <a class="policy-item" href="https://www.gd.gov.cn/xxts/content/post_4760520.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">广东省推动商业航天高质量发展若干政策措施（2025—2028年）（粤办函〔2025〕231号）</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2025</span>
+                                    <span class="policy-item-host">广东省人民政府办公厅 · gd.gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                        <a class="policy-item" href="https://gdca.miit.gov.cn/zwgk/tzgg/art/2026/art_36730e24225a49ab989900efdfe7c617.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">广东省信息通信业"十五五"规划（征求意见稿）</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2026</span>
+                                    <span class="policy-item-host">广东省通信管理局 · gdca.miit.gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                        <a class="policy-item" href="https://www.gd.gov.cn/zwgk/wngh/swwgh/content/post_4890296.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">广东省国民经济和社会发展第十五个五年规划纲要</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2026</span>
+                                    <span class="policy-item-host">广东省人民政府 · gd.gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                    </div>
+                </details>
+
+                <!-- 深圳市级 -->
+                <details class="policy-level-group">
+                    <summary class="policy-level-header">
+                        <span class="policy-level-badge city">深</span>
+                        <span class="policy-level-title">深圳市级政策</span>
+                        <span class="policy-level-count">9 份</span>
+                        <span class="policy-level-chevron">▾</span>
+                    </summary>
+                    <div class="policy-list">
+                        <a class="policy-item" href="https://fgw.sz.gov.cn/zwgk/qt/tzgg/content/post_8847849.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">深圳市关于支持卫星及应用产业发展的工作意见</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2025</span>
+                                    <span class="policy-item-host">深圳市发改委 · fgw.sz.gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                        <a class="policy-item" href="https://www.sz.gov.cn/zfgb/2022/gb1248/content/post_9918806.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">深圳市人民政府关于发展壮大战略性新兴产业集群和培育发展未来产业的意见（深府〔2022〕1号）</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2022</span>
+                                    <span class="policy-item-host">深圳市人民政府 · sz.gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                        <a class="policy-item" href="https://stic.sz.gov.cn/xxgk/kjgh/content/post_9861356.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">深圳市培育发展未来产业行动计划（2022-2025年）</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2022</span>
+                                    <span class="policy-item-host">深圳市科创委 · stic.sz.gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                        <a class="policy-item" href="https://www.sz.gov.cn/zfgb/2025/gb1387/content/post_12422358.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">深圳市支持低空经济高质量发展的若干措施</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2025</span>
+                                    <span class="policy-item-host">深圳市人民政府 · sz.gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                        <a class="policy-item" href="https://www.sz.gov.cn/cn/xxgk/zfxxgj/zcfg/content/post_11191030.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">关于加快发展新质生产力进一步推进战略性新兴产业集群和未来产业高质量发展的实施方案</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2025</span>
+                                    <span class="policy-item-host">深圳市人民政府 · sz.gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                        <a class="policy-item" href="https://www.szrd.gov.cn/v2/zx/szfg/content/post_1123253.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">深圳经济特区低空经济产业促进条例</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2025</span>
+                                    <span class="policy-item-host">深圳市人大 · szrd.gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                        <a class="policy-item" href="https://www.sz.gov.cn/cn/xxgk/zfxxgj/zwdt/content/post_11964163.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">深圳市培育发展低空经济与空天产业集群行动计划（2024-2025年）</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2024</span>
+                                    <span class="policy-item-host">深圳市人民政府 · sz.gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                        <a class="policy-item" href="https://fgw.sz.gov.cn/zwgk/ghjh/ghgy/content/post_12872790.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">深圳市国民经济和社会发展第十五个五年规划纲要</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2026</span>
+                                    <span class="policy-item-host">深圳市发改委 · fgw.sz.gov.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                        <a class="policy-item" href="https://www.cinn.cn/2026/02-12/3DlVe0B1.html" target="_blank" rel="noopener">
+                            <span class="policy-item-icon">📄</span>
+                            <span class="policy-item-body">
+                                <div class="policy-item-name">深圳市"20+8"战略性新兴产业集群和未来产业政策体系（3.0版）</div>
+                                <div class="policy-item-meta">
+                                    <span class="policy-item-year">2026</span>
+                                    <span class="policy-item-host">中国工业新闻网 · cinn.cn</span>
+                                </div>
+                            </span>
+                        </a>
+                    </div>
+                </details>
             </div>
         </div>
     </section>
@@ -1406,8 +1867,8 @@
                 <span>建星计划</span>
             </div>
             <div class="footer-links">
-                <a href="https://global.ourccb.icu">全球星座地图</a>
-                <a href="https://city.ourccb.icu">深圳产业地图</a>
+                <a href="global.ourccb.icu">全球星座地图</a>
+                <a href="city.ourccb.icu">深圳产业地图</a>
                 <a href="#overview">产业概况</a>
                 <a href="#timeline">发展历程</a>
             </div>
@@ -1416,10 +1877,6 @@
                 <div class="team-row">
                     <span class="team-row-label">指导老师</span>
                     <span class="team-row-members">迅雷<span class="sep">·</span>张斯琪</span>
-                </div>
-                <div class="team-row">
-                    <span class="team-row-label">培训老师</span>
-                    <span class="team-row-members">骆文琛<span class="sep">·</span>李珊珊<span class="sep">·</span>王佳妮<span class="sep">·</span>卓志聪<span class="sep">·</span>洪雯雯<span class="sep">·</span>陈茗</span>
                 </div>
                 <div class="team-row">
                     <span class="team-row-label">21研讨小组成员</span>
